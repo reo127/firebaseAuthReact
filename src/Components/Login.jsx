@@ -23,8 +23,9 @@ const Login = () => {
             }
 
             let res = await signInWithEmailAndPassword(auth, email, password)
+            navigate('/')
             console.log(res.user)
-            
+
         } catch (error) {
             console.log(error)
             console.log(error.massage)

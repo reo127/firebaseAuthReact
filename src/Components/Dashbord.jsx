@@ -1,10 +1,29 @@
-import React from 'react'
-// import { useNavigate } from "react-router-dom";
-// import Cookies from 'universal-cookie';
-// import axios from 'axios'
+import React, { useState, useEffect } from 'react'
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '../firebase';
+import { useNavigate } from "react-router-dom";
 
 const Dashbord = () => {
+    const navigate = useNavigate()
+    const [user, setUser] = useState([])
 
+
+    useEffect(() => {
+      checkAuth()
+    }, [])
+    
+
+    const checkAuth = async () => {
+        await onAuthStateChanged(auth, (user) => {
+            setUser(user)
+        })
+    }
+
+console.log(user)
+
+if(!user){
+    navigate('/login')
+}
 
 
     return (
@@ -14,6 +33,9 @@ const Dashbord = () => {
                     <div className="max-w-md text-center">
                         <h2 className="mb-8 font-extrabold text-9xl dark:text-gray-600">
                             <span className="sr-only"> </span> Welcome
+                        </h2>
+                        <h2 className="mb-8 font-extrabold text-6xl dark:text-gray-600">
+                            <span className="sr-only"> </span> {user && user.email}
                         </h2>
                         {/* <p className="text-2xl font-semibold md:text-3xl">Sorry, we couldn't find this page.</p>
                         <p className="mt-4 mb-8 dark:text-gray-400">But dont worry, you can find plenty of other things on our homepage.</p>
