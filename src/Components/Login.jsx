@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { useNavigate } from "react-router-dom";
 import Cookies from 'universal-cookie';
-// import axios from 'axios';
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from '../firebase'
 
 
 const Login = () => {
@@ -15,10 +16,20 @@ const Login = () => {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        if(email === "" || password === ""){
-            setError("Place fill the email and password")
-            return
+        try {
+            if (email === "" || password === "") {
+                setError("Place fill the email and password")
+                return
+            }
+
+            let res = await signInWithEmailAndPassword(auth, email, password)
+            console.log(res.user)
+            
+        } catch (error) {
+            console.log(error)
+            console.log(error.massage)
         }
+
 
 
     }
@@ -44,7 +55,7 @@ const Login = () => {
                         />
                     </div>
                     <div className='w-full flex justify-center my-3'> <button className="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg" onClick={handleLogin}>Button</button></div>
-                    {error && <h1 className='text-3xl font-semibold text-red-400'>{ error }</h1> }
+                    {error && <h1 className='text-3xl font-semibold text-red-400'>{error}</h1>}
                 </div>
             </div>
         </section>

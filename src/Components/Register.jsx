@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from '../firebase'
 
 const Register = () => {
@@ -27,6 +27,7 @@ const Register = () => {
 
             let res = await createUserWithEmailAndPassword(auth, email, password)
             let user = res.user
+            navigate('/login')
             console.log(user)
             
         } catch (error) {

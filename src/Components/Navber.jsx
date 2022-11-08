@@ -1,8 +1,14 @@
 import React from 'react'
 import { Link } from "react-router-dom";
+import { signOut } from "firebase/auth";
+import { auth } from '../firebase'
 import Cookies from 'universal-cookie';
 
 const Navber = () => {
+
+    const logout = () => {
+        signOut(auth);
+      };
    
 
 
@@ -15,7 +21,7 @@ const Navber = () => {
                 <div className="items-center flex-shrink-0 lg:flex">
                     <Link to='/login'> <button className="px-8 py-3 font-semibold rounded dark:bg-violet-400 dark:text-gray-900 mr-3">Log in</button> </Link>
                     <Link to='/register'> <button className="px-8 py-3 font-semibold rounded dark:bg-violet-400 dark:text-gray-900">Register</button> </Link>
-                    <button className="px-8 py-3 font-semibold rounded dark:bg-violet-400 dark:text-gray-900 ml-3" >Logout</button>
+                    <button className="px-8 py-3 font-semibold rounded dark:bg-violet-400 dark:text-gray-900 ml-3" onClick={logout} >Logout</button>
                 </div>
 
             </div>
