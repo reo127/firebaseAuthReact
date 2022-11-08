@@ -1,12 +1,10 @@
 import React, { useState } from 'react'
 import { useNavigate } from "react-router-dom";
-import Cookies from 'universal-cookie';
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from '../firebase'
 
 
 const Login = () => {
-    const cookies = new Cookies();
     const navigate = useNavigate();
 
     const [email, setEmail] = useState('');
@@ -28,7 +26,11 @@ const Login = () => {
 
         } catch (error) {
             console.log(error)
-            console.log(error.massage)
+            console.log(error.code)
+            if(error.code === 'auth/wrong-password'){
+                setError( "Wrong password " )
+            }
+           
         }
 
 
